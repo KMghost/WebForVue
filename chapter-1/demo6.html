@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+    <qinjiang v-for="item in items" v-bind:i="item"></qinjiang>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script>
+
+    // 定义一个Vue组件component
+    Vue.component("qinjiang",{   //注册主键
+        props:['i'], //接受参数
+        template: '<li>{{ i }}</li>'  //渲染参数
+    })
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            items: ["java","linux","前端"]
+        },
+        methods: {
+        }
+    })
+</script>
+</body>
+</html>

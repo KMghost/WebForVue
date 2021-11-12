@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="vue" v-cloak>
+    <div>{{ info.name }}</div>
+    <div>{{ info.address }}</div>
+    <a :href="info.url">点我</a>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: "#vue",
+        data() { // return 的时候需要用data函数
+            return {
+                // 请求的返回参数合适，必须和 json 字符串一样
+                info: {
+                    name: null,
+                    address: {
+                        street: null,
+                        city: null,
+                        county: null
+                    },
+                    url: null,
+                }
+            }
+        },
+        mounted() { // 钩子函数 链式编程
+            axios.get('../data.json').then(response => (this.info = response.data))
+        }
+    });
+</script>
+</body>
+</html>

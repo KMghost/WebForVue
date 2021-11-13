@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app" v-cloak>
+    <todo>
+        <todo-title slot="todo-title" :title="title"></todo-title>
+        <todo-items slot="todo-items" v-for="item in todoItmes" :item="item"></todo-items>
+    </todo>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script type="text/javascript">
+
+    Vue.component("todo", {
+        template:
+        // 写法1：
+        // '<div>' \ '<slot></slot>' \ '<ul>' \ '<slot></slot>' \ '</ul>' \
+        // '</div>'
+        // 写法2：
+            '<div>\
+                <slot name="todo-title"></slot>\
+                <ul>\
+                    <slot name="todo-items"></slot>\
+                </ul>\
+            </div>'
+    })
+
+    Vue.component("todo-title", {
+        props: ['title'],
+        template: '<div>{{title}}</div>'
+    })
+    Vue.component("todo-items", {
+        props: ['item'],
+        template: '<li>{{item}}</li>'
+    })
+
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            title: "gg",
+            todoItmes: ["python", "java"]
+        }
+    });
+</script>
+</body>
+</html>

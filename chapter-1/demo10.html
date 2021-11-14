@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app" v-cloak>
+    <todo>
+        <todo-title slot="todo-title" :title="title"></todo-title>
+        <todo-items slot="todo-items" v-for="(item,index) in todoItmes"
+                    :item="item" :index="index" @re="removeItems(index,item)"></todo-items>
+    </todo>
+</div>
+<!--自定义事件内容分发执行流程：
+1、<button @click="remove">删除</button> // click 事件调用的 slot 中的 remove 方法
+2、this.$emit('re',index)  // remove 方法中分发了一个 re 事件，并传递 index 参数
+3、@re="removeItems(index) // re 事件调用了 vm.removeItems() 方法 并传入 index
+4、removeItems方法处理结果
+-->
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script type="text/javascript">
+
+    Vue.component("todo", {
+        template:
+        // 写法2：
+            '<div>\
+                <slot name="todo-title"></slot>\
+                <ul>\
+                    <slot name="todo-items"></slot>\
+                </ul>\
+            </div>'
+    })
+
+    Vue.component("todo-title", {
+        props: ['title'],
+        template: '<div>{{title}}</div>'
+    })
+    Vue.component("todo-items", {
+        props: ['item', 'index'],
+        // 只能绑定当前事件的方法
+        template: '<li>{{index}}----{{item}} <button @click="remove">删除</button></li> ',
+        methods: {
+            remove: function (index,item) {
+                //
+                this.$emit('re',index,item)
+            }
+        }
+    })
+
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            title: "gg",
+            todoItmes: ["python", "java", "Go"]
+        },
+        methods: {
+            removeItems: function (index,item) {
+                // console.log("删除了：" + this.todoItmes[index])
+                console.log("删除了：" + item)
+                this.todoItmes.splice(index, 1); // 一次删除一个元素
+            }
+        }
+    });
+</script>
+</body>
+</html>

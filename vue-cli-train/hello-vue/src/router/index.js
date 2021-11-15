@@ -6,14 +6,16 @@ import Login from "../views/Login";
 
 import UserList from "../views/user/List";
 import UserProfile from "../views/user/Profile";
-
+import NotFound from "../views/NotFound";
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',  // mode两种模式 hash是路径带#的，mode是路径不带#的
   routes: [
     {
-      path: '/main',
+      path: '/main/:username',
       component: Main,
+      props: true,
       children: [
         {
           path: '/user/profile/:id',
@@ -29,6 +31,9 @@ export default new Router({
     },{
       path: '/goHome',
       redirect: '/main'
+    },{
+      path:'*',
+      component: NotFound
     }
   ]
 })

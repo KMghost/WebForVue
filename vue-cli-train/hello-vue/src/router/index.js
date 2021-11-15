@@ -15,12 +15,20 @@ export default new Router({
       path: '/main',
       component: Main,
       children: [
-        {path: '/user/profile', component: UserProfile},
+        {
+          path: '/user/profile/:id',
+          name: 'UserProfile',
+          component: UserProfile,
+          props: true     // 开启传参模式
+        },
         {path: '/user/list', component: UserList},
       ]
     }, {
       path: '/login',
       component: Login, // 嵌套路由
+    },{
+      path: '/goHome',
+      redirect: '/main'
     }
   ]
 })

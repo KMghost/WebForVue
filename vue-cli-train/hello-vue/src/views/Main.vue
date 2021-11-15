@@ -8,10 +8,14 @@
             <template slot="title"><i class="el-icon-caret-right"></i>用户管理</template>
             <el-menu-item-group>
               <el-menu-item index="1-1">
-                <router-link to="/user/profile">个人信息</router-link>
+                <!--name-传组件名， params-传递参数 需要对象： v-bind-->
+                <router-link v-bind:to="{name:'UserProfile',params:{id: 1}}">个人信息</router-link>
               </el-menu-item>
               <el-menu-item index="1-2">
                 <router-link to="/user/list">用户列表</router-link>
+              </el-menu-item>
+              <el-menu-item index="1-3">
+                <router-link to="/goHome">回到主页</router-link>
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
